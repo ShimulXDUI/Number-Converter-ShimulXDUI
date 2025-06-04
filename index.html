@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Number Converter - সংখ্যা পদ্ধতি রূপান্তরক || ShimulXD UI">
+    <meta name="keywords" content="Number Converter, Converter, ShimulXDUI, Developer Tool">
+    <meta name="author" content="ShimulXDUI">
+    <meta property="og:title" content="Number Converter - সংখ্যা পদ্ধতি রূপান্তরক | ShimulXD UI">
+    <meta property="og:description" content="Convert GitHub repository links to raw content links instantly.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://shimulxdui.github.io/raw-link-converter">
+    <title>সংখ্যা পদ্ধতি রূপান্তরক - Decimal, Binary, Octal, Hexadecimal</title>
+    <link rel="icon" href="https://raw.githubusercontent.com/ShimulXDUI/Photo-ShimulXD-UI/refs/heads/main/Gallery/ShimulXD_UI_Logo.jpg" type="image/jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+  --primary-color: #4361ee;
+  --primary-dark: #3a56d4;
+  --secondary-color: #3f37c9;
+  --accent-color: #4895ef;
+  --light-color: #f8f9fa;
+  --dark-color: #212529;
+  --success-color: #4cc9f0;
+  --error-color: #f72585;
+  --warning-color: #f8961e;
+  --border-radius: 12px;
+  --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  color: var(--dark-color);
+  min-height: 100vh;
+  padding: 2rem;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+}
+
+.header {
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  color: white;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.header p {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  position: relative;
+  z-index: 2;
+}
+
+.header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M54.627 0h.186l-.08-.16A60 60 0 0 0 0 54.627l.16.08v.186h.001l.16-.08A60 60 0 0 0 54.808 0l-.08.16h-.101zm-5.018 5.018l-.16.08A50 50 0 0 1 5.098 49.449l.08.16h.186l.16-.08A50 50 0 0 1 49.627 5.098l-.08.16v.16z' fill='%234361ee' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+  opacity: 0.2;
+}
+
+.content {
+  padding: 2rem;
+}
+
+.input-section {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--dark-color);
+  font-size: 0.95rem;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 15px;
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  z-index: 2;
+}
+
+.input-field {
+  width: 100%;
+  font-size: 1rem;
+  padding: 12px 15px 12px 45px;
+  border: 2px solid #e9ecef;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  background-color: var(--light-color);
+  font-family: 'Noto Sans Bengali', sans-serif;
+}
+
+.input-field:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+  background-color: white;
+}
+
+.base-selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.base-option {
+  position: relative;
+}
+
+.base-option input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.base-option label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0.5rem;
+  background-color: var(--light-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+  border: 2px solid transparent;
+  text-align: center;
+  font-weight: 500;
+}
+
+.base-option label i {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+.base-option input:checked + label {
+  background-color: rgba(67, 97, 238, 0.1);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.base-option input:focus + label {
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.btn {
+  cursor: pointer;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  font-weight: 600;
+  font-family: 'Noto Sans Bengali', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: #e9ecef;
+  color: var(--dark-color);
+}
+
+.btn-secondary:hover {
+  background-color: #dee2e6;
+  transform: translateY(-2px);
+}
+
+.btn-clear {
+  background-color: var(--error-color);
+  color: white;
+}
+
+.btn-clear:hover {
+  background-color: #d91a6d;
+  transform: translateY(-2px);
+}
+
+.error-message {
+  color: var(--error-color);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: center;
+  padding: 0.8rem;
+  background-color: rgba(247, 37, 133, 0.1);
+  border-radius: var(--border-radius);
+  display: none;
+}
+
+.output-section {
+  background-color: #f8f9fa;
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  display: none;
+}
+
+.output-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.output-title i {
+  font-size: 1.2rem;
+}
+
+.output-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.output-field {
+  margin-bottom: 0;
+  position: relative;
+}
+
+.output-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #495057;
+}
+
+.output-value {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 2px solid #e9ecef;
+  background-color: white;
+  color: var(--dark-color);
+  font-family: 'Noto Sans Bengali', monospace;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.copy-btn {
+  position: absolute;
+  left: 150px;
+  top: 20%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  font-size: 1rem;
+  opacity: 0.7;
+  transition: var(--transition);
+  padding: 5px;
+}
+
+.copy-btn:hover {
+  opacity: 1;
+  color: var(--primary-dark);
+}
+
+.history-section {
+  margin-top: 2rem;
+  display: none;
+}
+
+.history-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--light-color);
+  padding: 0.8rem 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.history-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.history-content.active {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.history-item {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid #e9ecef;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.history-item:last-child {
+  border-bottom: none;
+}
+
+.history-item-info {
+  font-family: 'Noto Sans Bengali', monospace;
+  font-size: 0.9rem;
+}
+
+.history-item-actions {
+  display: flex;
+  gap: 5px;
+}
+
+.history-item-btn {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 3px;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: var(--dark-color);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.8rem;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+footer {
+  text-align: center;
+  margin-top: 2rem;
+  color: #6c757d;
+  font-size: 0.85rem;
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 12px 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.toast i {
+  font-size: 1.2rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.output-section {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@media (max-width: 768px) {
+  .container {
+    margin: 1rem auto;
+  }
+  
+  .content {
+    padding: 1.5rem;
+  }
+  
+  .base-selector {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .output-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .button-group {
+    flex-direction: column;
+  }
+}
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .output-section {
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast i {
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-exchange-alt"></i> সংখ্যা পদ্ধতি রূপান্তরক</h1>
+            <p>যেকোনো সংখ্যাকে দশমিক, বাইনারি, অক্টাল ও হেক্সাডেসিমালে রূপান্তর করুন</p>
+        </div>
+
+        <div class="content">
+            <div class="input-section">
+                <label for="inputNumber" class="input-label">সংখ্যা লিখুন</label>
+                <div class="input-group">
+                    <i class="fas fa-hashtag input-icon"></i>
+                    <input type="text" id="inputNumber" class="input-field" placeholder="যেকোনো সংখ্যা লিখুন..." autofocus>
+                </div>
+            </div>
+
+            <div class="base-selector">
+                <div class="base-option">
+                    <input type="radio" id="decimal" name="base" value="decimal" checked>
+                    <label for="decimal">
+                        <i class="fas fa-1"></i>
+                        দশমিক (Decimal)
+                    </label>
+                </div>
+                <div class="base-option">
+                    <input type="radio" id="binary" name="base" value="binary">
+                    <label for="binary">
+                        <i class="fas fa-0"></i>
+                        বাইনারি (Binary)
+                    </label>
+                </div>
+                <div class="base-option">
+                    <input type="radio" id="octal" name="base" value="octal">
+                    <label for="octal">
+                        <i class="fas fa-8"></i>
+                        অক্টাল (Octal)
+                    </label>
+                </div>
+                <div class="base-option">
+                    <input type="radio" id="hexadecimal" name="base" value="hexadecimal">
+                    <label for="hexadecimal">
+                        <i class="fas fa-a"></i>
+                        হেক্সাডেসিমাল (Hex)
+                    </label>
+                </div>
+            </div>
+
+            <div class="error-message" id="errorMsg"></div>
+
+            <div class="button-group">
+                <button class="btn btn-primary" id="convertBtn" onclick="convertNumber()">
+                    <i class="fas fa-exchange-alt"></i> রূপান্তর করুন
+                </button>
+                <button class="btn btn-secondary" onclick="clearFields()">
+                    <i class="fas fa-eraser"></i> ক্লিয়ার
+                </button>
+                <button class="btn btn-clear" onclick="clearHistory()">
+                    <i class="fas fa-trash-alt"></i> হিস্ট্রি
+                </button>
+            </div>
+
+            <div class="output-section" id="outputSection" style="display: none;">
+                <h3 class="output-title"><i class="fas fa-calculator"></i> রূপান্তর ফলাফল</h3>
+                <div class="output-grid">
+                    <div class="output-field">
+                        <label class="output-label">দশমিক (Decimal)</label>
+                        <input type="text" id="outputDecimal" class="output-value" readonly>
+                        <button class="copy-btn tooltip" onclick="copyToClipboard('outputDecimal')">
+                            <i class="far fa-copy"></i>
+                            <span class="tooltiptext">কপি করুন</span>
+                        </button>
+                    </div>
+                    <div class="output-field">
+                        <label class="output-label">বাইনারি (Binary)</label>
+                        <input type="text" id="outputBinary" class="output-value" readonly>
+                        <button class="copy-btn tooltip" onclick="copyToClipboard('outputBinary')">
+                            <i class="far fa-copy"></i>
+                            <span class="tooltiptext">কপি করুন</span>
+                        </button>
+                    </div>
+                    <div class="output-field">
+                        <label class="output-label">অক্টাল (Octal)</label>
+                        <input type="text" id="outputOctal" class="output-value" readonly>
+                        <button class="copy-btn tooltip" onclick="copyToClipboard('outputOctal')">
+                            <i class="far fa-copy"></i>
+                            <span class="tooltiptext">কপি করুন</span>
+                        </button>
+                    </div>
+                    <div class="output-field">
+                        <label class="output-label">হেক্সাডেসিমাল (Hex)</label>
+                        <input type="text" id="outputHex" class="output-value" readonly>
+                        <button class="copy-btn tooltip" onclick="copyToClipboard('outputHex')">
+                            <i class="far fa-copy"></i>
+                            <span class="tooltiptext">কপি করুন</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="history-section" id="historySection">
+                <div class="history-toggle" onclick="toggleHistory()">
+                    <span><i class="fas fa-history"></i> পূর্বের রূপান্তরসমূহ</span>
+                    <i class="fas fa-chevron-down" id="historyToggleIcon"></i>
+                </div>
+                <div class="history-content" id="historyContent">
+                    <!-- History items will be added here dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">কপি করা হয়েছে!</span>
+    </div>
+
+    <footer>
+        <p>© 2025 সংখ্যা পদ্ধতি রূপান্তরক | তৈরি করেছেন ShimulXD UI</p>
+    </footer>
+
+    <script>
+        // DOM elements
+        const inputNumber = document.getElementById('inputNumber');
+        const errorMsg = document.getElementById('errorMsg');
+        const outputSection = document.getElementById('outputSection');
+        const outputDecimal = document.getElementById('outputDecimal');
+        const outputBinary = document.getElementById('outputBinary');
+        const outputOctal = document.getElementById('outputOctal');
+        const outputHex = document.getElementById('outputHex');
+        const convertBtn = document.getElementById('convertBtn');
+        const historySection = document.getElementById('historySection');
+        const historyContent = document.getElementById('historyContent');
+        const historyToggleIcon = document.getElementById('historyToggleIcon');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+
+        // History array
+        let conversionHistory = JSON.parse(localStorage.getItem('conversionHistory')) || [];
+
+        // Initialize the app
+        function init() {
+            // Load history if exists
+            if (conversionHistory.length > 0) {
+                historySection.style.display = 'block';
+                renderHistory();
+            }
+            
+            // Add event listener for Enter key
+            inputNumber.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    convertNumber();
+                }
+            });
+        }
+
+        // Convert number function
+        function convertNumber() {
+            const input = inputNumber.value.trim();
+            errorMsg.style.display = 'none';
+            errorMsg.textContent = '';
+
+            if (!input) {
+                showError('দয়া করে একটি সংখ্যা লিখুন।');
+                return;
+            }
+
+            // Get selected base
+            const base = document.querySelector('input[name="base"]:checked').value;
+
+            let decimalValue;
+
+            // Validate and convert input to decimal first
+            try {
+                switch(base) {
+                    case 'decimal':
+                        if (!/^-?[0-9]+$/.test(input)) {
+                            throw new Error('দশমিক সংখ্যা অবশ্যই শুধুমাত্র 0-9 সংখ্যা হতে হবে।');
+                        }
+                        decimalValue = BigInt(input);
+                        break;
+
+                    case 'binary':
+                        if (!/^[01]+$/.test(input)) {
+                            throw new Error('বাইনারি সংখ্যা শুধুমাত্র 0 এবং 1 হতে হবে।');
+                        }
+                        decimalValue = BigInt('0b' + input);
+                        break;
+
+                    case 'octal':
+                        if (!/^[0-7]+$/.test(input)) {
+                            throw new Error('অক্টাল সংখ্যা ০ থেকে ৭ এর মধ্যে হতে হবে।');
+                        }
+                        decimalValue = BigInt('0o' + input);
+                        break;
+
+                    case 'hexadecimal':
+                        if (!/^[0-9a-fA-F]+$/.test(input)) {
+                            throw new Error('হেক্সাডেসিমাল সংখ্যা 0-9 এবং A-F (বা a-f) অক্ষর হতে হবে।');
+                        }
+                        decimalValue = BigInt('0x' + input);
+                        break;
+
+                    default:
+                        throw new Error('অনুমোদিত সংখ্যা পদ্ধতি নির্বাচন করুন।');
+                }
+            } catch(e) {
+                showError(e.message);
+                return;
+            }
+
+            // Convert decimalValue to all other bases
+            outputDecimal.value = decimalValue.toString(10);
+            outputBinary.value = decimalValue.toString(2);
+            outputOctal.value = decimalValue.toString(8);
+            outputHex.value = decimalValue.toString(16).toUpperCase();
+
+            // Show output section
+            outputSection.style.display = 'block';
+
+            // Add to history
+            addToHistory(input, base);
+        }
+
+        // Show error message
+        function showError(message) {
+            errorMsg.textContent = message;
+            errorMsg.style.display = 'block';
+            outputSection.style.display = 'none';
+        }
+
+        // Clear all fields
+        function clearFields() {
+            inputNumber.value = '';
+            outputDecimal.value = '';
+            outputBinary.value = '';
+            outputOctal.value = '';
+            outputHex.value = '';
+            errorMsg.style.display = 'none';
+            outputSection.style.display = 'none';
+            inputNumber.focus();
+        }
+
+        // Copy to clipboard
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            element.select();
+            document.execCommand('copy');
+            
+            // Show toast notification
+            toastMessage.textContent = `${element.previousElementSibling.textContent} কপি করা হয়েছে!`;
+            showToast();
+        }
+
+        // Show toast notification
+        function showToast() {
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Add conversion to history
+        function addToHistory(input, base) {
+            const conversion = {
+                input,
+                base,
+                decimal: outputDecimal.value,
+                binary: outputBinary.value,
+                octal: outputOctal.value,
+                hex: outputHex.value,
+                timestamp: new Date().toLocaleString()
+            };
+
+            // Add to beginning of array
+            conversionHistory.unshift(conversion);
+            
+            // Keep only last 10 items
+            if (conversionHistory.length > 10) {
+                conversionHistory = conversionHistory.slice(0, 10);
+            }
+
+            // Save to localStorage
+            localStorage.setItem('conversionHistory', JSON.stringify(conversionHistory));
+
+            // Update UI
+            if (conversionHistory.length === 1) {
+                historySection.style.display = 'block';
+            }
+            renderHistory();
+        }
+
+        // Render history
+        function renderHistory() {
+            historyContent.innerHTML = '';
+            
+            conversionHistory.forEach((item, index) => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                
+                historyItem.innerHTML = `
+                    <div class="history-item-info">
+                        <strong>${item.input}</strong> (${getBaseName(item.base)}) → 
+                        Dec: ${item.decimal}, Bin: ${item.binary}, Oct: ${item.octal}, Hex: ${item.hex}
+                        <br><small>${item.timestamp}</small>
+                    </div>
+                    <div class="history-item-actions">
+                        <button class="history-item-btn tooltip" onclick="loadFromHistory(${index})">
+                            <i class="fas fa-redo"></i>
+                            <span class="tooltiptext">পুনরায় ব্যবহার করুন</span>
+                        </button>
+                        <button class="history-item-btn tooltip" onclick="deleteHistoryItem(${index})">
+                            <i class="fas fa-trash-alt"></i>
+                            <span class="tooltiptext">মুছে ফেলুন</span>
+                        </button>
+                    </div>
+                `;
+                
+                historyContent.appendChild(historyItem);
+            });
+        }
+
+        // Get base name
+        function getBaseName(base) {
+            const bases = {
+                'decimal': 'দশমিক',
+                'binary': 'বাইনারি',
+                'octal': 'অক্টাল',
+                'hexadecimal': 'হেক্স'
+            };
+            return bases[base] || base;
+        }
+
+        // Load from history
+        function loadFromHistory(index) {
+            const item = conversionHistory[index];
+            inputNumber.value = item.input;
+            
+            // Select the radio button
+            document.querySelector(`input[name="base"][value="${item.base}"]`).checked = true;
+            
+            // Convert immediately
+            convertNumber();
+            
+            // Show toast
+            toastMessage.textContent = 'পূর্বের রূপান্তর লোড করা হয়েছে!';
+            showToast();
+        }
+
+        // Delete history item
+        function deleteHistoryItem(index) {
+            conversionHistory.splice(index, 1);
+            localStorage.setItem('conversionHistory', JSON.stringify(conversionHistory));
+            
+            if (conversionHistory.length === 0) {
+                historySection.style.display = 'none';
+            } else {
+                renderHistory();
+            }
+            
+            toastMessage.textContent = 'রূপান্তর হিস্ট্রি থেকে মুছে ফেলা হয়েছে!';
+            showToast();
+        }
+
+        // Clear history
+        function clearHistory() {
+            if (conversionHistory.length === 0) {
+                toastMessage.textContent = 'কোনো হিস্ট্রি নেই!';
+                showToast();
+                return;
+            }
+            
+            if (confirm('আপনি কি নিশ্চিত যে আপনি সমস্ত রূপান্তর হিস্ট্রি মুছে ফেলতে চান?')) {
+                conversionHistory = [];
+                localStorage.removeItem('conversionHistory');
+                historySection.style.display = 'none';
+                
+                toastMessage.textContent = 'সমস্ত হিস্ট্রি মুছে ফেলা হয়েছে!';
+                showToast();
+            }
+        }
+
+        // Toggle history visibility
+        function toggleHistory() {
+            historyContent.classList.toggle('active');
+            historyToggleIcon.classList.toggle('fa-chevron-down');
+            historyToggleIcon.classList.toggle('fa-chevron-up');
+        }
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
